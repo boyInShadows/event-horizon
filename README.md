@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Event Horizon — team-site fork
 
-## Getting Started
+A Next.js prototype for the Event Horizon Tech team website, with a black-hole
+hero, service/roadmap sections and an image carousel.
 
-First, run the development server:
+![Fork running locally after the dark-theme readability correction](docs/artifacts/showcase/desktop.png)
 
-```bash
+## Provenance and status
+
+This is a fork of
+[EventHorzionTeam/event-horizon](https://github.com/EventHorzionTeam/event-horizon).
+Before this update, fork revision `ffde63d` was 20 commits behind upstream
+`3f82aca`, with zero fork-only commits. Shared history includes commits
+attributed to Ramtin and the team; this is not presented as sole-authored work.
+Upstream branding and contribution history remain intact.
+
+This fork's presentation pass removes an unused dependency that blocked normal
+installation and corrects inherited dark text on the fixed dark artwork when
+the system prefers light mode. It does not import the newer upstream branch.
+Navigation labels and the Get Started control are still presentation placeholders;
+no backend, customer usage or current commercial deployment is verified.
+
+## Run this fork
+
+Verified on Windows with Node.js 24.11.1 and npm 11.6.2. The lockfile pins
+Next.js 15.3.5 and React 19.1.0; the site also uses Tailwind CSS 4 and GSAP.
+No application credentials are required. Google fonts need build-time network.
+
+```sh
+git clone https://github.com/boyInShadows/event-horizon.git
+cd event-horizon
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>. Existing checks and production preview:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The [carousel](app/components/mainPage/section3/imageSlider/index.js) implements
+its own previous/next transitions; it does not use the removed `react-slider`
+package. Retained package versions were not upgraded.
 
-## Learn More
+## Verification and limits
 
-To learn more about Next.js, take a look at the following resources:
+On 2026-10-30, normal locked installation, lint and production build passed
+after the unused dependency was removed. Build retains a Turbopack-config
+deprecation warning. Edge checks verified previous/next carousel positions,
+visible image loading and light/dark system-preference text readability.
+The theme regression failed before the correction and passes afterward.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Mobile still overflows: the 390px viewport produced a 723px document. Buttons
+and navigation need further accessibility/functionality work. There is no test
+script or quality CI. A dated npm audit reported 14 advisories (2 critical,
+9 high, 2 moderate, 1 low); production security and live deployment remain
+unverified. Bootstrapped with create-next-app; framework, team and asset rights
+remain unchanged. No project license is assigned by this update.
